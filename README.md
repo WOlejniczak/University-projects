@@ -20,3 +20,7 @@ Szczegóły działania programu:
 - Możliwość zmiany wysokości nad poziomem morza danego punktu
 - Wyświetlanie największej i najmniejszej wysokości nad poziomem morza
 - Interaktywne menu przyjazne dla użytkownika
+
+
+![image](https://user-images.githubusercontent.com/60985440/160209833-aac2480f-1521-41f4-84e3-86ed364277cc.png)
+
