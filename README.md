@@ -22,5 +22,6 @@ Szczegóły działania programu:
 - Interaktywne menu przyjazne dla użytkownika
 
 
-![image](https://user-images.githubusercontent.com/60985440/160209833-aac2480f-1521-41f4-84e3-86ed364277cc.png)
+![image](https://user-images.githubusercontent.com/60985440/160209900-ef0b0179-24b4-4a91-96ca-296ea3dd0d67.png)
+
 
