@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using U8Xml;
 
 namespace Geo
 {
@@ -42,7 +45,7 @@ namespace Geo
         }
         public void SetText(String x)
         {
-            this.link = x;
+            this.text = x;
         }
         public void SetTime(DateTime x)
         {
@@ -56,7 +59,7 @@ namespace Geo
 
 
     public class Punkt //przechowuje punkty
-    { 
+    {
         private double lat;
         private double lon;
         private double ele;
@@ -126,5 +129,82 @@ namespace Geo
         }
     }
 
-    
+    public class XmlWrapper
+    {
+        String path = "";
+
+        public XmlWrapper(string path)
+        {
+            this.path = path;
+        }
+
+        public List<Punkt> ReadTrk()
+        {
+            List<Punkt> punkty = new List<Punkt>();
+            using (XmlObject xml = XmlParser.ParseFile(path))
+            {
+                
+                
+                U8Xml.XmlNode root = xml.Root;
+                U8Xml.XmlNode trkseg = root.Descendants.Find("trkseg");
+                
+                foreach (U8Xml.XmlNode node in trkseg.Children)
+                {
+
+                    Punkt punkt = new Punkt();
+                    if (node.Name == "trkpt")
+                    {
+                        foreach(U8Xml.XmlNode newnode in node.Children)
+                        {
+                            if (newnode.Name == "ele")
+                            {
+                                // Console.WriteLine(node.InnerText);
+                                punkt.SetEle(Double.Parse(newnode.InnerText.ToString().Replace('.',',')));
+                            }
+                            if (newnode.Name == "time")
+                            {
+                                // Console.WriteLine(node.InnerText);
+                                punkt.SetTime(DateTime.Parse(newnode.InnerText.ToString().Replace('.', ',')));
+                            }
+                        }
+                        // Console.WriteLine(node.Attributes.Find("lat").Value);
+                        // Console.WriteLine(node.Attributes.Find("lon").Value);
+                        punkt.SetLat(Double.Parse(node.Attributes.Find("lat").Value.ToString().Replace('.', ',')));
+                        punkt.SetLon(Double.Parse(node.Attributes.Find("lon").Value.ToString().Replace('.', ',')));
+                    }
+                    
+                    punkty.Add(punkt);
+                }
+            }
+            return punkty;
+        }
+        public FileMetadata ReadMetadata()
+        {
+            FileMetadata output = new FileMetadata();
+            using (XmlObject xml = XmlParser.ParseFile(path))
+            {
+                U8Xml.XmlNode root = xml.Root;
+                U8Xml.XmlNode metadata = root.Children.First();
+                foreach (U8Xml.XmlNode node in metadata.Descendants)
+                {
+                    if (node.Name == "link")
+                    {
+                       // Console.WriteLine(node.Attributes.First());
+                        output.SetLink(node.Attributes.First().Value.ToString());
+                    }
+                    if (node.Name == "text")
+                    {
+                       // Console.WriteLine(node.InnerText);
+                        output.SetText(node.InnerText.ToString());
+                    }
+                    if (node.Name == "time")
+                    {
+                       // Console.WriteLine(node.InnerText);
+                        output.SetTime(DateTime.Parse(node.InnerText.ToString()));
+                    }
+                }
+            }
+            return output;
+        }
+    }
 }

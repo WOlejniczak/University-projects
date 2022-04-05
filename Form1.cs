@@ -8,12 +8,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Xml;
+using U8Xml;
 
 
 namespace Geo
@@ -27,6 +30,7 @@ namespace Geo
         public Form1()
         {
             InitializeComponent();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -73,7 +77,16 @@ namespace Geo
 
         private void button1_Click(object sender, EventArgs e)
         {
+            XmlWrapper wrapper = new XmlWrapper("PlikDoTestow.gpx");
+            List<Punkt> punkty = wrapper.ReadTrk();
+            FileMetadata filemetadata = wrapper.ReadMetadata();
+
+            Console.WriteLine(filemetadata.GetData()); //:)
             
+            foreach(Punkt data in punkty)
+            {
+                Console.WriteLine(data.GetData());
+            }
         }
     }
 }
