@@ -13,13 +13,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Xml;
 
 
 namespace Geo
 {
     public partial class Form1 : Form
     {
-
 
         double lat = 0;
         double lng = 0;
@@ -67,8 +67,13 @@ namespace Geo
           
 
            
-           // MessageBox.Show("X: " + lat + " " + "Y: " + lng);
+           
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
