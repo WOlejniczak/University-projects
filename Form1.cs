@@ -104,21 +104,24 @@ namespace Geo
 
         private void button1_Click(object sender, EventArgs e)
         {
+            openFileDialog.InitialDirectory = "C:\\";
+            openFileDialog.Filter = "GPX files (*.gpx)|*.gpx";
+            openFileDialog.FilterIndex = 1;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {   //wczytanie punktów, w przyszłości wyświetlenie na mapie
+                XmlWrapper wrapper = new XmlWrapper(openFileDialog.FileName);
+                List<Punkt> punkty = wrapper.ReadTrk();
+                FileMetadata filemetadata = wrapper.ReadMetadata();
 
-            Process.Start("c:\\");
+                Console.WriteLine(filemetadata.GetData()); //:)
 
-            
-             XmlWrapper wrapper = new XmlWrapper("PlikDoTestow.gpx");
-             List<Punkt> punkty = wrapper.ReadTrk();
-             FileMetadata filemetadata = wrapper.ReadMetadata();
-
-             Console.WriteLine(filemetadata.GetData()); //:)
-
-            foreach (Punkt data in punkty)
-            {
-                Console.WriteLine(data.GetData());
+                foreach (Punkt data in punkty)
+                {
+                    Console.WriteLine(data.GetData());
+                }
             }
-            
+
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -156,10 +159,18 @@ namespace Geo
 
         private void panel1_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if(dragging)
+            if (dragging)
             {
                 Point p = PointToScreen(e.Location);
                 Location = new Point(p.X - startPoint.X, p.Y - startPoint.Y);
+            }
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {   //zapis danych do pliku
+                
             }
         }
     }
