@@ -20,7 +20,7 @@ using System.Windows.Media;
 using System.Xml;
 using U8Xml;
 
-
+// jaca kurła, weź pisz lepiej ten kod
 namespace Geo
 {
     public partial class Form1 : Form
@@ -123,7 +123,26 @@ namespace Geo
 
 
         }
+        /*placeholder
+         
+         List<Position> RouteCoordinates = new List<Position>();
+RouteCoordinates.Add(new Position(37.7850268, -122.4005109));
+RouteCoordinates.Add(new Position(37.780624, -122.390541));
 
+var polylineOptions = new PolylineOptions();
+polylineOptions.InvokeColor(0x66FF0000);
+
+foreach (var position in RouteCoordinates)
+{
+    polylineOptions.Add(new LatLng(position.Latitude, position.Longitude));
+
+    MarkerOptions marker = new MarkerOptions();
+    marker.SetPosition(new LatLng(position.Latitude, position.Longitude));
+    gmap.AddMarker(marker);
+}
+
+gmap.AddPolyline(polylineOptions);
+         */
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
