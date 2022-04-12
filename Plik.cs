@@ -221,8 +221,7 @@ namespace Geo
         {
             XmlDocument dokument = new XmlDocument();
 
-            string zawartosc = "<?xml version=\"1.0\" encoding=\"UTF - 8\" standalone=\"no\" ?>";
-            zawartosc += "<gpx><metadata><link " + metadata.GetLink() + "><text>" + metadata.GetText() +
+             string zawartosc = "<gpx><metadata><link " + metadata.GetLink() + "><text>" + metadata.GetText() +
                                 "</text></link><time>" + metadata.GetTime() + "</time></metadata><trk><name>Edited</name><trkseg>";
             foreach(Punkt punkt in punkty)
             {
@@ -233,8 +232,13 @@ namespace Geo
             }
             zawartosc += "</trkseg></trk></gpx>";
             dokument.LoadXml(zawartosc);
-           // dokument.Save("test.gpx"); //TODO
-           //nie działa
+            //deklaracja xml
+            System.Xml.XmlDeclaration xmldec;
+            xmldec = dokument.CreateXmlDeclaration("1.0", "utf-8", "yes");
+            XmlElement root = dokument.DocumentElement;
+            dokument.InsertBefore(xmldec, root);
+            dokument.Save(path);
+
         }
     }
 }
