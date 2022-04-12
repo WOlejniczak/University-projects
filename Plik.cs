@@ -7,6 +7,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using U8Xml;
 using System.Data.SQLite;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
+
 
 namespace Geo
 {
@@ -139,6 +143,12 @@ namespace Geo
             this.path = path;
         }
 
+        public XmlWrapper(){}
+
+        public void SetPath(string path)
+        {
+            this.path = path;
+        }
         public List<Punkt> ReadTrk()
         {
             List<Punkt> punkty = new List<Punkt>();
@@ -206,6 +216,25 @@ namespace Geo
                 }
             }
             return output;
+        }
+        public void SaveFile(string path,FileMetadata metadata, List<Punkt> punkty)
+        {
+            XmlDocument dokument = new XmlDocument();
+
+            string zawartosc = "<?xml version=\"1.0\" encoding=\"UTF - 8\" standalone=\"no\" ?>";
+            zawartosc += "<gpx><metadata><link " + metadata.GetLink() + "><text>" + metadata.GetText() +
+                                "</text></link><time>" + metadata.GetTime() + "</time></metadata><trk><name>Edited</name><trkseg>";
+            foreach(Punkt punkt in punkty)
+            {
+                zawartosc += "<trkpt lat=\"" + punkt.GetLat() + "\" lon=\"" + punkt.GetLon() + "\">" +
+                             "<ele>" + punkt.GetEle() + "</ele>" +
+                             "<time>" + punkt.GetTime() + "</time>" +
+                             "</trkpt>";
+            }
+            zawartosc += "</trkseg></trk></gpx>";
+            dokument.LoadXml(zawartosc);
+           // dokument.Save("test.gpx"); //TODO
+           //nie działa
         }
     }
 }

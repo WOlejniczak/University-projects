@@ -30,7 +30,9 @@ namespace Geo
 
         double lat = 0;
         double lng = 0;
-
+        XmlWrapper wrapper = new XmlWrapper();
+        List<Punkt> punkty = new List<Punkt>();
+        FileMetadata filemetadata = new FileMetadata();
 
         public Form1()
         {
@@ -109,8 +111,8 @@ namespace Geo
             openFileDialog.FilterIndex = 1;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {   //wczytanie punktów, w przyszłości wyświetlenie na mapie
-                XmlWrapper wrapper = new XmlWrapper(openFileDialog.FileName);
-                List<Punkt> punkty = wrapper.ReadTrk();
+                wrapper.SetPath(openFileDialog.FileName);
+                punkty = wrapper.ReadTrk(); 
                 FileMetadata filemetadata = wrapper.ReadMetadata();
 
                 Console.WriteLine(filemetadata.GetData()); //:)
@@ -168,9 +170,12 @@ namespace Geo
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            saveFileDialog.InitialDirectory = "C:\\";
+            saveFileDialog.Filter = "GPX files (*.gpx)|*.gpx";
+            saveFileDialog.FilterIndex = 1;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {   //zapis danych do pliku
-                
+                wrapper.SaveFile(saveFileDialog.FileName,filemetadata,punkty);
             }
         }
     }
