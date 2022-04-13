@@ -116,6 +116,10 @@ namespace Geo
         {
             return this.time;
         }
+        public String GetTimeOnly()
+        {
+            return this.time.ToString("HH:mm:ss");
+        }
         public void SetLat(double x)
         {
             this.lat = x;

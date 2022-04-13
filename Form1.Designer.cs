@@ -152,6 +152,7 @@ namespace Geo
             this.Graphs.TabIndex = 7;
             this.Graphs.Text = "Wykresy";
             this.Graphs.UseVisualStyleBackColor = true;
+            this.Graphs.Click += new System.EventHandler(this.Graphs_Click);
             // 
             // openFileDialog
             // 

@@ -197,5 +197,12 @@ gmap.AddPolyline(polylineOptions);
                 wrapper.SaveFile(saveFileDialog.FileName,filemetadata,punkty);
             }
         }
+
+        private void Graphs_Click(object sender, EventArgs e)
+        {
+            Wykresy wykresy = new Wykresy(punkty);
+            wykresy.StartPosition = FormStartPosition.CenterParent;
+            wykresy.ShowDialog(this); //pokazuję tak żeby mieć dobrego parenta (to okno)
+        }
     }
 }
