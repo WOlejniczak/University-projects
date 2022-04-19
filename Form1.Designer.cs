@@ -54,7 +54,7 @@ namespace Geo
             this.map.GrayScaleMode = false;
             this.map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.map.LevelsKeepInMemory = 5;
-            this.map.Location = new System.Drawing.Point(1, 31);
+            this.map.Location = new System.Drawing.Point(1, 37);
             this.map.MarkersEnabled = true;
             this.map.MaxZoom = 2;
             this.map.MinZoom = 2;
