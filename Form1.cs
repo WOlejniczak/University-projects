@@ -2,23 +2,10 @@
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
-using GMap.NET.WindowsPresentation;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Xml;
-using U8Xml;
 
 // jaca kurła, weź pisz lepiej ten kod
 namespace Geo
@@ -75,35 +62,6 @@ namespace Geo
 
         }
 
-        private void map_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void map_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-
-
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                lat = map.FromLocalToLatLng(e.X, e.Y).Lat;
-                lng = map.FromLocalToLatLng(e.X, e.Y).Lng;
-            }
-
-            var point = new GMap.NET.PointLatLng(lat, lng);
-            GMap.NET.WindowsForms.GMapMarker marker = new GMarkerGoogle(point, GMarkerGoogleType.red);
-            // map.Overlays.Clear();
-            GMapOverlay markers = new GMapOverlay("markers");
-            map.Overlays.Add(markers);
-            markers.Markers.Add(marker);
-
-
-
-
-
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             openFileDialog.InitialDirectory = "C:\\";
@@ -112,7 +70,7 @@ namespace Geo
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {   //wczytanie punktów, w przyszłości wyświetlenie na mapie
                 wrapper.SetPath(openFileDialog.FileName);
-                punkty = wrapper.ReadTrk(); 
+                punkty = wrapper.ReadTrk();
                 FileMetadata filemetadata = wrapper.ReadMetadata();
 
                 Console.WriteLine(filemetadata.GetData()); //:)
@@ -121,30 +79,12 @@ namespace Geo
                 {
                     Console.WriteLine(data.GetData());
                 }
+                DrawTrk(punkty);
             }
 
 
         }
-        /*placeholder
-         
-         List<Position> RouteCoordinates = new List<Position>();
-RouteCoordinates.Add(new Position(37.7850268, -122.4005109));
-RouteCoordinates.Add(new Position(37.780624, -122.390541));
 
-var polylineOptions = new PolylineOptions();
-polylineOptions.InvokeColor(0x66FF0000);
-
-foreach (var position in RouteCoordinates)
-{
-    polylineOptions.Add(new LatLng(position.Latitude, position.Longitude));
-
-    MarkerOptions marker = new MarkerOptions();
-    marker.SetPosition(new LatLng(position.Latitude, position.Longitude));
-    gmap.AddMarker(marker);
-}
-
-gmap.AddPolyline(polylineOptions);
-         */
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
@@ -194,7 +134,7 @@ gmap.AddPolyline(polylineOptions);
             saveFileDialog.FilterIndex = 1;
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {   //zapis danych do pliku
-                wrapper.SaveFile(saveFileDialog.FileName,filemetadata,punkty);
+                wrapper.SaveFile(saveFileDialog.FileName, filemetadata, punkty);
             }
         }
 
@@ -203,6 +143,32 @@ gmap.AddPolyline(polylineOptions);
             Wykresy wykresy = new Wykresy(punkty);
             wykresy.StartPosition = FormStartPosition.CenterParent;
             wykresy.ShowDialog(this); //pokazuję tak żeby mieć dobrego parenta (to okno)
+        }
+
+        private void DrawTrk(List<Punkt> x)
+        {
+            GMapOverlay linie = new GMapOverlay("droga");
+            GMapOverlay punkty = new GMapOverlay("Punkty");
+            for (int i = 0; i < x.Count - 1; i++)
+            {
+                Punkt marker = x[i];
+                Punkt nextMarker = x[i + 1];
+                List<PointLatLng> points = new List<PointLatLng>();
+                points.Add(new PointLatLng(marker.GetLat(), marker.GetLon()));
+                points.Add(new PointLatLng(nextMarker.GetLat(), nextMarker.GetLon()));
+                GMap.NET.WindowsForms.GMapPolygon polygon = new GMap.NET.WindowsForms.GMapPolygon(points, "przebyta droga");
+                polygon.Fill = new SolidBrush(System.Drawing.Color.FromArgb(0, System.Drawing.Color.Red));
+                polygon.Stroke = new System.Drawing.Pen(System.Drawing.Color.Red, 2);
+                linie.Polygons.Add(polygon);
+                punkty.Markers.Add(new GMarkerGoogle(new PointLatLng(marker.GetLat(), marker.GetLon()), GMarkerGoogleType.blue_dot));
+            }
+            map.Overlays.Add(punkty);
+            map.Overlays.Add(linie);
+        }
+
+        private void map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        {
+            
         }
     }
 }

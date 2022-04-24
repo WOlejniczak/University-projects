@@ -71,8 +71,6 @@ namespace Geo
             this.map.Size = new System.Drawing.Size(1100, 560);
             this.map.TabIndex = 0;
             this.map.Zoom = 0D;
-            this.map.DoubleClick += new System.EventHandler(this.map_DoubleClick);
-            this.map.MouseClick += new System.Windows.Forms.MouseEventHandler(this.map_MouseClick);
             // 
             // LoadButton
             // 

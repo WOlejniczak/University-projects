@@ -1,12 +1,7 @@
 ﻿using GeoSpatial4Net;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -67,11 +62,11 @@ namespace Geo
             foreach (Punkt punkt in LocalPunkty)
             {
                 seria.Points.AddXY(punkt.GetTimeOnly(), punkt.GetEle());
-                if(punkt.GetEle() < minimum)
+                if (punkt.GetEle() < minimum)
                 {
                     minimum = punkt.GetEle();
                 }
-                if(punkt.GetEle() > maximum)
+                if (punkt.GetEle() > maximum)
                 {
                     maximum = punkt.GetEle();
                 }

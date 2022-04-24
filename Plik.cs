@@ -1,15 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using U8Xml;
-using System.Data.SQLite;
 using System.Xml;
-using System.Xml.Serialization;
-using System.IO;
+using U8Xml;
 
 
 namespace Geo
@@ -147,7 +139,7 @@ namespace Geo
             this.path = path;
         }
 
-        public XmlWrapper(){}
+        public XmlWrapper() { }
 
         public void SetPath(string path)
         {
@@ -158,23 +150,23 @@ namespace Geo
             List<Punkt> punkty = new List<Punkt>();
             using (XmlObject xml = XmlParser.ParseFile(path))
             {
-                
-                
+
+
                 U8Xml.XmlNode root = xml.Root;
                 U8Xml.XmlNode trkseg = root.Descendants.Find("trkseg");
-                
+
                 foreach (U8Xml.XmlNode node in trkseg.Children)
                 {
 
                     Punkt punkt = new Punkt();
                     if (node.Name == "trkpt")
                     {
-                        foreach(U8Xml.XmlNode newnode in node.Children)
+                        foreach (U8Xml.XmlNode newnode in node.Children)
                         {
                             if (newnode.Name == "ele")
                             {
                                 // Console.WriteLine(node.InnerText);
-                                punkt.SetEle(Double.Parse(newnode.InnerText.ToString().Replace('.',',')));
+                                punkt.SetEle(Double.Parse(newnode.InnerText.ToString().Replace('.', ',')));
                             }
                             if (newnode.Name == "time")
                             {
@@ -187,7 +179,7 @@ namespace Geo
                         punkt.SetLat(Double.Parse(node.Attributes.Find("lat").Value.ToString().Replace('.', ',')));
                         punkt.SetLon(Double.Parse(node.Attributes.Find("lon").Value.ToString().Replace('.', ',')));
                     }
-                    
+
                     punkty.Add(punkt);
                 }
             }
@@ -204,30 +196,30 @@ namespace Geo
                 {
                     if (node.Name == "link")
                     {
-                       // Console.WriteLine(node.Attributes.First());
+                        // Console.WriteLine(node.Attributes.First());
                         output.SetLink(node.Attributes.First().Value.ToString());
                     }
                     if (node.Name == "text")
                     {
-                       // Console.WriteLine(node.InnerText);
+                        // Console.WriteLine(node.InnerText);
                         output.SetText(node.InnerText.ToString());
                     }
                     if (node.Name == "time")
                     {
-                       // Console.WriteLine(node.InnerText);
+                        // Console.WriteLine(node.InnerText);
                         output.SetTime(DateTime.Parse(node.InnerText.ToString()));
                     }
                 }
             }
             return output;
         }
-        public void SaveFile(string path,FileMetadata metadata, List<Punkt> punkty)
+        public void SaveFile(string path, FileMetadata metadata, List<Punkt> punkty)
         {
             XmlDocument dokument = new XmlDocument();
 
-             string zawartosc = "<gpx><metadata><link " + metadata.GetLink() + "><text>" + metadata.GetText() +
-                                "</text></link><time>" + metadata.GetTime() + "</time></metadata><trk><name>Edited</name><trkseg>";
-            foreach(Punkt punkt in punkty)
+            string zawartosc = "<gpx><metadata><link " + metadata.GetLink() + "><text>" + metadata.GetText() +
+                               "</text></link><time>" + metadata.GetTime() + "</time></metadata><trk><name>Edited</name><trkseg>";
+            foreach (Punkt punkt in punkty)
             {
                 zawartosc += "<trkpt lat=\"" + punkt.GetLat() + "\" lon=\"" + punkt.GetLon() + "\">" +
                              "<ele>" + punkt.GetEle() + "</ele>" +
