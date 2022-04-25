@@ -21,8 +21,5 @@ Szczegóły działania programu:
 - Wyświetlanie największej i najmniejszej wysokości nad poziomem morza
 - Interaktywne menu przyjazne dla użytkownika
 
-
-
-![image](https://user-images.githubusercontent.com/60985440/160209900-ef0b0179-24b4-4a91-96ca-296ea3dd0d67.png)
-
+![Screenshot_11](https://user-images.githubusercontent.com/66250729/165047426-ff21b431-cc38-4b27-b2a8-8326d3d76a41.png)
 
