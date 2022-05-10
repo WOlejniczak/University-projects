@@ -4,16 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
+using System.Drawing;
 
 namespace Geo
 {
     public partial class Wykresy : Form
     {
         List<Punkt> LocalPunkty = new List<Punkt>();
-        public Wykresy(List<Punkt> punkty)
+        GMapMarker lastClickedMarker;
+        public Wykresy(List<Punkt> punkty, GMapMarker _lastClickedMarker)
         {
             InitializeComponent();
             LocalPunkty = punkty;
+            lastClickedMarker = _lastClickedMarker;
         }
 
         private double rad2deg(double rad)
@@ -24,44 +31,24 @@ namespace Geo
         {
             return (deg * Math.PI / 180.0);
         }
-        private double distance(double lat1, double lon1, double lat2, double lon2, char unit)
-        {
-            if ((lat1 == lat2) && (lon1 == lon2))
-            {
-                return 0;
-            }
-            else
-            {
-                double theta = lon1 - lon2;
-                double dist = Math.Sin(deg2rad(lat1)) * Math.Sin(deg2rad(lat2)) + Math.Cos(deg2rad(lat1)) * Math.Cos(deg2rad(lat2)) * Math.Cos(deg2rad(theta));
-                dist = Math.Acos(dist);
-                dist = rad2deg(dist);
-                dist = dist * 60 * 1.1515;
-                if (unit == 'K')
-                {
-                    dist = dist * 1.609344;
-                }
-                else if (unit == 'N')
-                {
-                    dist = dist * 0.8684;
-                }
-                return (dist);
-            }
-        }
+        
         private void Wykresy_Load(object sender, EventArgs e)
         {
+           
             //wykres wysokosci
             WykresEle.Series.Clear();
             WykresEle.Titles.Add("Średnia wysokość (n.p.m)");
             Series seria = WykresEle.Series.Add("Średnia wysokość (n.p.m)");
-            seria.ChartType = SeriesChartType.Spline;
+            seria.ChartType = SeriesChartType.Line;
+            seria.MarkerStyle = MarkerStyle.Circle;
 
             //teraz dodaje do serii
             double minimum = 10000000000000000000;
             double maximum = -1000000000000000000;
+            int counter = 0;
             foreach (Punkt punkt in LocalPunkty)
             {
-                seria.Points.AddXY(punkt.GetTimeOnly(), punkt.GetEle());
+                
                 if (punkt.GetEle() < minimum)
                 {
                     minimum = punkt.GetEle();
@@ -70,10 +57,30 @@ namespace Geo
                 {
                     maximum = punkt.GetEle();
                 }
+                seria.Points.AddXY(punkt.GetTimeOnly(), punkt.GetEle());
+                counter++;
+                try
+                {
+                    if (punkt.GetLat() == lastClickedMarker.Position.Lat && punkt.GetLon() == lastClickedMarker.Position.Lng)
+                    {
+                        seria.Points[counter - 1].MarkerStyle = MarkerStyle.Circle;
+                        seria.Points[counter - 1].MarkerSize = 10;
+                        seria.Points[counter - 1].MarkerColor = Color.Red;
+                        
+                    }
+                }catch(Exception exc)
+                {
+                    Console.WriteLine(exc);
+                }
+                
             }
             //ustawiam zakres wykresu
             WykresEle.ChartAreas[0].AxisY.Maximum = maximum + 10;
             WykresEle.ChartAreas[0].AxisY.Minimum = minimum - 10;
+            //zaznaczam ostatnio kliknięty element na wykresie
+
+            
+
 
             //wykres sredniej predkosci
 
@@ -95,6 +102,20 @@ namespace Geo
                 {
                     Console.WriteLine(predkosc);
                     seriaPr.Points.AddXY(punkt.GetTimeOnly(), predkosc);
+                    try
+                    {
+                        if (punkt.GetLat() == lastClickedMarker.Position.Lat && punkt.GetLon() == lastClickedMarker.Position.Lng)
+                        {
+                            seriaPr.Points[i-1].MarkerStyle = MarkerStyle.Circle;
+                            seriaPr.Points[i-1].MarkerSize = 10;
+                            seriaPr.Points[i-1].MarkerColor = Color.Red;
+
+                        }
+                    }
+                    catch (Exception exc)
+                    {
+                        Console.WriteLine(exc);
+                    }
                 }
             }
         }

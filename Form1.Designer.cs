@@ -51,10 +51,11 @@ namespace Geo
             this.map.Bearing = 0F;
             this.map.CanDragMap = true;
             this.map.EmptyTileColor = System.Drawing.Color.Navy;
+            this.map.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.map.GrayScaleMode = false;
             this.map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.map.LevelsKeepInMemory = 5;
-            this.map.Location = new System.Drawing.Point(1, 37);
+            this.map.Location = new System.Drawing.Point(1, 30);
             this.map.MarkersEnabled = true;
             this.map.MaxZoom = 2;
             this.map.MinZoom = 2;
@@ -68,9 +69,10 @@ namespace Geo
             this.map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.map.ShowTileGridLines = false;
-            this.map.Size = new System.Drawing.Size(1100, 560);
+            this.map.Size = new System.Drawing.Size(1100, 567);
             this.map.TabIndex = 0;
             this.map.Zoom = 0D;
+            this.map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.map_OnMarkerClick);
             // 
             // LoadButton
             // 
@@ -98,12 +100,13 @@ namespace Geo
             // MaximalizeButton
             // 
             this.MaximalizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MaximalizeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.MaximalizeButton.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.MaximalizeButton.Location = new System.Drawing.Point(1023, 0);
             this.MaximalizeButton.Name = "MaximalizeButton";
             this.MaximalizeButton.Size = new System.Drawing.Size(40, 31);
             this.MaximalizeButton.TabIndex = 3;
-            this.MaximalizeButton.Text = "[_]";
+            this.MaximalizeButton.Text = "□";
             this.MaximalizeButton.UseVisualStyleBackColor = true;
             this.MaximalizeButton.Click += new System.EventHandler(this.button3_Click);
             // 

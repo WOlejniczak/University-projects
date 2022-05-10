@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-// jaca kurła, weź pisz lepiej ten kod
 namespace Geo
 {
     public partial class Form1 : Form
@@ -20,6 +19,7 @@ namespace Geo
         XmlWrapper wrapper = new XmlWrapper();
         List<Punkt> punkty = new List<Punkt>();
         FileMetadata filemetadata = new FileMetadata();
+        GMapMarker lastClickedMarker;
 
         public Form1()
         {
@@ -140,7 +140,7 @@ namespace Geo
 
         private void Graphs_Click(object sender, EventArgs e)
         {
-            Wykresy wykresy = new Wykresy(punkty);
+            Wykresy wykresy = new Wykresy(punkty, lastClickedMarker);
             wykresy.StartPosition = FormStartPosition.CenterParent;
             wykresy.ShowDialog(this); //pokazuję tak żeby mieć dobrego parenta (to okno)
         }
@@ -160,7 +160,7 @@ namespace Geo
                 polygon.Fill = new SolidBrush(System.Drawing.Color.FromArgb(0, System.Drawing.Color.Red));
                 polygon.Stroke = new System.Drawing.Pen(System.Drawing.Color.Red, 2);
                 linie.Polygons.Add(polygon);
-                punkty.Markers.Add(new GMarkerGoogle(new PointLatLng(marker.GetLat(), marker.GetLon()), GMarkerGoogleType.blue_dot));
+                punkty.Markers.Add(new GMarkerGoogle(new PointLatLng(marker.GetLat(), marker.GetLon()), GMarkerGoogleType.blue_dot)); //tutaj można zmienić styl markera :)
             }
             map.Overlays.Add(punkty);
             map.Overlays.Add(linie);
@@ -168,7 +168,7 @@ namespace Geo
 
         private void map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
-            
+            lastClickedMarker = item; // przekazuje dalej kliknięty punkt :)
         }
     }
 }
