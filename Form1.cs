@@ -13,9 +13,6 @@ namespace Geo
     {
         private bool dragging = false;
         private Point startPoint = new Point(0, 0);
-
-        double lat = 0;
-        double lng = 0;
         XmlWrapper wrapper = new XmlWrapper();
         List<Punkt> punkty = new List<Punkt>();
         FileMetadata filemetadata = new FileMetadata();
@@ -56,7 +53,8 @@ namespace Geo
             map.MaxZoom = 100;
             map.Zoom = 10;
             map.ShowCenter = false;
-
+            AddPanel.Visible = false;
+            EditPanel.Visible = false;
 
 
 
@@ -72,17 +70,8 @@ namespace Geo
                 wrapper.SetPath(openFileDialog.FileName);
                 punkty = wrapper.ReadTrk();
                 FileMetadata filemetadata = wrapper.ReadMetadata();
-
-                Console.WriteLine(filemetadata.GetData()); //:)
-
-                foreach (Punkt data in punkty)
-                {
-                    Console.WriteLine(data.GetData());
-                }
                 DrawTrk(punkty);
             }
-
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -140,13 +129,14 @@ namespace Geo
 
         private void Graphs_Click(object sender, EventArgs e)
         {
-            Wykresy wykresy = new Wykresy(punkty, lastClickedMarker);
+            Wykresy wykresy = new Wykresy(punkty, lastClickedMarker); // przekazuję parametry do okna wykresów
             wykresy.StartPosition = FormStartPosition.CenterParent;
             wykresy.ShowDialog(this); //pokazuję tak żeby mieć dobrego parenta (to okno)
         }
 
         private void DrawTrk(List<Punkt> x)
         {
+            map.Overlays.Clear();
             GMapOverlay linie = new GMapOverlay("droga");
             GMapOverlay punkty = new GMapOverlay("Punkty");
             for (int i = 0; i < x.Count - 1; i++)
@@ -165,10 +155,83 @@ namespace Geo
             map.Overlays.Add(punkty);
             map.Overlays.Add(linie);
         }
-
         private void map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
-            lastClickedMarker = item; // przekazuje dalej kliknięty punkt :)
+            lastClickedMarker = item; // oznaczam jako ostatnio wybrany element
+            if (e.Button == MouseButtons.Right)
+            {
+                contextMenu.Show(map,e.Location); //pokazuje menu kontextowe 
+            }
+            
+        }
+
+        private void RemoveSelected_Click(object sender, EventArgs e) //usuwa wybrany punkt
+        {
+           for(int i=0;i < punkty.Count; i++)
+            {
+                if(punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
+                {
+                    punkty.RemoveAt(i);
+                    DrawTrk(punkty);
+                }
+            }
+        }
+
+        private void RemoveAllPrev_Click(object sender, EventArgs e)
+        {
+            
+            for(int i = 0; i < punkty.Count; i++)
+            {
+                if(punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
+                {
+                    
+                    DrawTrk(punkty);
+                    return;
+                }
+                punkty.RemoveAt(0);
+                
+            }
+        }
+
+        private void RemoveAllNext_Click(object sender, EventArgs e)
+        {
+            Boolean after = false;
+            for (int i = 0; i < punkty.Count; i++)
+            {
+                if(after == true)
+                {
+                    punkty.RemoveAt(i);
+                }
+                if (punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
+                {
+                    after = true;
+                }
+            }
+            DrawTrk(punkty);
+        }
+
+        private void AddOnePrev_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EditSelected_Click(object sender, EventArgs e)
+        {
+            EditPanel.Location = new Point(Cursor.Position.X, Cursor.Position.Y);
+            EditPanel.Visible = true;
+            for(int i = 0; i < punkty.Count; i++)
+            {
+                if(punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
+                {
+                    EditEle.Value = (decimal)punkty[i].GetEle();
+
+                }
+            }
+        }
+
+        private void AddOneNext_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

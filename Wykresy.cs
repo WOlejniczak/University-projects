@@ -22,15 +22,6 @@ namespace Geo
             LocalPunkty = punkty;
             lastClickedMarker = _lastClickedMarker;
         }
-
-        private double rad2deg(double rad)
-        {
-            return (rad / Math.PI * 180.0);
-        }
-        private double deg2rad(double deg)
-        {
-            return (deg * Math.PI / 180.0);
-        }
         
         private void Wykresy_Load(object sender, EventArgs e)
         {
