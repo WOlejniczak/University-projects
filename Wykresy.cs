@@ -50,8 +50,8 @@ namespace Geo
                 }
                 seria.Points.AddXY(punkt.GetTimeOnly(), punkt.GetEle());
                 counter++;
-                try
-                {
+                
+                if(lastClickedMarker != null){
                     if (punkt.GetLat() == lastClickedMarker.Position.Lat && punkt.GetLon() == lastClickedMarker.Position.Lng)
                     {
                         seria.Points[counter - 1].MarkerStyle = MarkerStyle.Circle;
@@ -59,10 +59,8 @@ namespace Geo
                         seria.Points[counter - 1].MarkerColor = Color.Red;
                         
                     }
-                }catch(Exception exc)
-                {
-                    Console.WriteLine(exc);
                 }
+               
                 
             }
             //ustawiam zakres wykresu
@@ -93,7 +91,7 @@ namespace Geo
                 {
                     
                     seriaPr.Points.AddXY(punkt.GetTimeOnly(), predkosc);
-                    try
+                    if (lastClickedMarker != null)
                     {
                         if (punkt.GetLat() == lastClickedMarker.Position.Lat && punkt.GetLon() == lastClickedMarker.Position.Lng)
                         {
@@ -103,10 +101,7 @@ namespace Geo
 
                         }
                     }
-                    catch (Exception exc)
-                    {
-                        Console.WriteLine(exc);
-                    }
+                    
                 }
             }
         }

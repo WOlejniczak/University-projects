@@ -48,48 +48,41 @@ namespace Geo
             this.EditSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.AddOneNext = new System.Windows.Forms.ToolStripMenuItem();
             this.RemoveAllNext = new System.Windows.Forms.ToolStripMenuItem();
-            this.AddPanel = new System.Windows.Forms.Panel();
+            this.EditPanel = new System.Windows.Forms.Panel();
             this.EditCancel = new System.Windows.Forms.Button();
             this.EditAdd = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.EditTime = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.EditEle = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.EditLat = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.EditLon = new System.Windows.Forms.NumericUpDown();
             this.labeledit = new System.Windows.Forms.Label();
-            this.EditPanel = new System.Windows.Forms.Panel();
+            this.AddPanel = new System.Windows.Forms.Panel();
             this.AddCancel = new System.Windows.Forms.Button();
             this.AddAdd = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.AddEle = new System.Windows.Forms.NumericUpDown();
-            this.AddTime = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.AddLat = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
-            this.AddLon = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
+            this.EditEle = new System.Windows.Forms.TextBox();
+            this.EditLat = new System.Windows.Forms.TextBox();
+            this.EditLon = new System.Windows.Forms.TextBox();
+            this.AddLat = new System.Windows.Forms.TextBox();
+            this.AddLon = new System.Windows.Forms.TextBox();
+            this.AddEle = new System.Windows.Forms.TextBox();
+            this.AddTime = new System.Windows.Forms.TextBox();
             this.contextMenu.SuspendLayout();
-            this.AddPanel.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EditEle)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EditLat)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditLon)).BeginInit();
             this.EditPanel.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.AddPanel.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AddEle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AddTime)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AddLat)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AddLon)).BeginInit();
             this.SuspendLayout();
             // 
             // map
@@ -264,17 +257,17 @@ namespace Geo
             this.RemoveAllNext.Text = "Usuń wszystkie punkty po tym punkcie";
             this.RemoveAllNext.Click += new System.EventHandler(this.RemoveAllNext_Click);
             // 
-            // AddPanel
+            // EditPanel
             // 
-            this.AddPanel.Controls.Add(this.EditCancel);
-            this.AddPanel.Controls.Add(this.EditAdd);
-            this.AddPanel.Controls.Add(this.groupBox2);
-            this.AddPanel.Controls.Add(this.groupBox1);
-            this.AddPanel.Location = new System.Drawing.Point(185, 174);
-            this.AddPanel.Name = "AddPanel";
-            this.AddPanel.Size = new System.Drawing.Size(413, 132);
-            this.AddPanel.TabIndex = 8;
-            this.AddPanel.Visible = false;
+            this.EditPanel.Controls.Add(this.EditCancel);
+            this.EditPanel.Controls.Add(this.EditAdd);
+            this.EditPanel.Controls.Add(this.groupBox2);
+            this.EditPanel.Controls.Add(this.groupBox1);
+            this.EditPanel.Location = new System.Drawing.Point(185, 174);
+            this.EditPanel.Name = "EditPanel";
+            this.EditPanel.Size = new System.Drawing.Size(413, 132);
+            this.EditPanel.TabIndex = 8;
+            this.EditPanel.Visible = false;
             // 
             // EditCancel
             // 
@@ -284,6 +277,7 @@ namespace Geo
             this.EditCancel.TabIndex = 7;
             this.EditCancel.Text = "Anuluj";
             this.EditCancel.UseVisualStyleBackColor = true;
+            this.EditCancel.Click += new System.EventHandler(this.EditCancel_Click);
             // 
             // EditAdd
             // 
@@ -291,15 +285,16 @@ namespace Geo
             this.EditAdd.Name = "EditAdd";
             this.EditAdd.Size = new System.Drawing.Size(325, 23);
             this.EditAdd.TabIndex = 6;
-            this.EditAdd.Text = "Dodaj";
+            this.EditAdd.Text = "Edytuj";
             this.EditAdd.UseVisualStyleBackColor = true;
+            this.EditAdd.Click += new System.EventHandler(this.EditAdd_Click);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.EditEle);
+            this.groupBox2.Controls.Add(this.EditTime);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.EditEle);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(209, 3);
             this.groupBox2.Name = "groupBox2";
@@ -308,12 +303,12 @@ namespace Geo
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "wysokość(n.p.m) i czas";
             // 
-            // textBox1
+            // EditTime
             // 
-            this.textBox1.Location = new System.Drawing.Point(70, 50);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(120, 20);
-            this.textBox1.TabIndex = 8;
+            this.EditTime.Location = new System.Drawing.Point(70, 50);
+            this.EditTime.Name = "EditTime";
+            this.EditTime.Size = new System.Drawing.Size(120, 20);
+            this.EditTime.TabIndex = 8;
             // 
             // label4
             // 
@@ -322,7 +317,7 @@ namespace Geo
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(174, 13);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Format: RRRR-MM-DD GG:MM:SS";
+            this.label4.Text = "Format: RRRR.MM.DD GG:MM:SS";
             // 
             // label3
             // 
@@ -332,29 +327,6 @@ namespace Geo
             this.label3.Size = new System.Drawing.Size(61, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "data i czas:";
-            // 
-            // EditEle
-            // 
-            this.EditEle.DecimalPlaces = 4;
-            this.EditEle.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            262144});
-            this.EditEle.Location = new System.Drawing.Point(70, 24);
-            this.EditEle.Maximum = new decimal(new int[] {
-            1410065408,
-            2,
-            0,
-            0});
-            this.EditEle.Minimum = new decimal(new int[] {
-            100000000,
-            0,
-            0,
-            -2147483648});
-            this.EditEle.Name = "EditEle";
-            this.EditEle.Size = new System.Drawing.Size(120, 20);
-            this.EditEle.TabIndex = 4;
             // 
             // label2
             // 
@@ -367,9 +339,9 @@ namespace Geo
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.EditLon);
             this.groupBox1.Controls.Add(this.EditLat);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.EditLon);
             this.groupBox1.Controls.Add(this.labeledit);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
@@ -377,13 +349,6 @@ namespace Geo
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Długość i szerokość geograficzna";
-            // 
-            // EditLat
-            // 
-            this.EditLat.Location = new System.Drawing.Point(70, 25);
-            this.EditLat.Name = "EditLat";
-            this.EditLat.Size = new System.Drawing.Size(120, 20);
-            this.EditLat.TabIndex = 0;
             // 
             // label1
             // 
@@ -394,13 +359,6 @@ namespace Geo
             this.label1.TabIndex = 3;
             this.label1.Text = "wysokość:";
             // 
-            // EditLon
-            // 
-            this.EditLon.Location = new System.Drawing.Point(70, 55);
-            this.EditLon.Name = "EditLon";
-            this.EditLon.Size = new System.Drawing.Size(120, 20);
-            this.EditLon.TabIndex = 1;
-            // 
             // labeledit
             // 
             this.labeledit.AutoSize = true;
@@ -410,16 +368,17 @@ namespace Geo
             this.labeledit.TabIndex = 2;
             this.labeledit.Text = "szerokość:";
             // 
-            // EditPanel
+            // AddPanel
             // 
-            this.EditPanel.Controls.Add(this.AddCancel);
-            this.EditPanel.Controls.Add(this.AddAdd);
-            this.EditPanel.Controls.Add(this.groupBox3);
-            this.EditPanel.Controls.Add(this.groupBox4);
-            this.EditPanel.Location = new System.Drawing.Point(185, 343);
-            this.EditPanel.Name = "EditPanel";
-            this.EditPanel.Size = new System.Drawing.Size(413, 132);
-            this.EditPanel.TabIndex = 9;
+            this.AddPanel.Controls.Add(this.AddCancel);
+            this.AddPanel.Controls.Add(this.AddAdd);
+            this.AddPanel.Controls.Add(this.groupBox3);
+            this.AddPanel.Controls.Add(this.groupBox4);
+            this.AddPanel.Location = new System.Drawing.Point(185, 343);
+            this.AddPanel.Name = "AddPanel";
+            this.AddPanel.Size = new System.Drawing.Size(413, 132);
+            this.AddPanel.TabIndex = 9;
+            this.AddPanel.Visible = false;
             // 
             // AddCancel
             // 
@@ -429,6 +388,7 @@ namespace Geo
             this.AddCancel.TabIndex = 7;
             this.AddCancel.Text = "Anuluj";
             this.AddCancel.UseVisualStyleBackColor = true;
+            this.AddCancel.Click += new System.EventHandler(this.AddCancel_Click);
             // 
             // AddAdd
             // 
@@ -438,13 +398,14 @@ namespace Geo
             this.AddAdd.TabIndex = 6;
             this.AddAdd.Text = "Dodaj";
             this.AddAdd.UseVisualStyleBackColor = true;
+            this.AddAdd.Click += new System.EventHandler(this.AddAdd_Click);
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.AddTime);
+            this.groupBox3.Controls.Add(this.AddEle);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.AddEle);
-            this.groupBox3.Controls.Add(this.AddTime);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Location = new System.Drawing.Point(209, 3);
             this.groupBox3.Name = "groupBox3";
@@ -460,7 +421,7 @@ namespace Geo
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(174, 13);
             this.label5.TabIndex = 7;
-            this.label5.Text = "Format: RRRR-MM-DD GG:MM:SS";
+            this.label5.Text = "Format: RRRR.MM.DD GG:MM:SS";
             // 
             // label6
             // 
@@ -470,20 +431,6 @@ namespace Geo
             this.label6.Size = new System.Drawing.Size(61, 13);
             this.label6.TabIndex = 6;
             this.label6.Text = "data i czas:";
-            // 
-            // AddEle
-            // 
-            this.AddEle.Location = new System.Drawing.Point(70, 24);
-            this.AddEle.Name = "AddEle";
-            this.AddEle.Size = new System.Drawing.Size(120, 20);
-            this.AddEle.TabIndex = 4;
-            // 
-            // AddTime
-            // 
-            this.AddTime.Location = new System.Drawing.Point(70, 50);
-            this.AddTime.Name = "AddTime";
-            this.AddTime.Size = new System.Drawing.Size(120, 20);
-            this.AddTime.TabIndex = 5;
             // 
             // label7
             // 
@@ -496,9 +443,9 @@ namespace Geo
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.AddLon);
             this.groupBox4.Controls.Add(this.AddLat);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.AddLon);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Location = new System.Drawing.Point(3, 3);
             this.groupBox4.Name = "groupBox4";
@@ -506,13 +453,6 @@ namespace Geo
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Długość i szerokość geograficzna";
-            // 
-            // AddLat
-            // 
-            this.AddLat.Location = new System.Drawing.Point(70, 25);
-            this.AddLat.Name = "AddLat";
-            this.AddLat.Size = new System.Drawing.Size(120, 20);
-            this.AddLat.TabIndex = 0;
             // 
             // label8
             // 
@@ -523,13 +463,6 @@ namespace Geo
             this.label8.TabIndex = 3;
             this.label8.Text = "wysokość:";
             // 
-            // AddLon
-            // 
-            this.AddLon.Location = new System.Drawing.Point(70, 55);
-            this.AddLon.Name = "AddLon";
-            this.AddLon.Size = new System.Drawing.Size(120, 20);
-            this.AddLon.TabIndex = 1;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -539,14 +472,63 @@ namespace Geo
             this.label9.TabIndex = 2;
             this.label9.Text = "szerokość:";
             // 
+            // EditEle
+            // 
+            this.EditEle.Location = new System.Drawing.Point(70, 25);
+            this.EditEle.Name = "EditEle";
+            this.EditEle.Size = new System.Drawing.Size(120, 20);
+            this.EditEle.TabIndex = 9;
+            // 
+            // EditLat
+            // 
+            this.EditLat.Location = new System.Drawing.Point(70, 23);
+            this.EditLat.Name = "EditLat";
+            this.EditLat.Size = new System.Drawing.Size(120, 20);
+            this.EditLat.TabIndex = 4;
+            // 
+            // EditLon
+            // 
+            this.EditLon.Location = new System.Drawing.Point(70, 54);
+            this.EditLon.Name = "EditLon";
+            this.EditLon.Size = new System.Drawing.Size(120, 20);
+            this.EditLon.TabIndex = 5;
+            // 
+            // AddLat
+            // 
+            this.AddLat.Location = new System.Drawing.Point(70, 24);
+            this.AddLat.Name = "AddLat";
+            this.AddLat.Size = new System.Drawing.Size(120, 20);
+            this.AddLat.TabIndex = 4;
+            // 
+            // AddLon
+            // 
+            this.AddLon.Location = new System.Drawing.Point(70, 54);
+            this.AddLon.Name = "AddLon";
+            this.AddLon.Size = new System.Drawing.Size(120, 20);
+            this.AddLon.TabIndex = 5;
+            // 
+            // AddEle
+            // 
+            this.AddEle.Location = new System.Drawing.Point(70, 23);
+            this.AddEle.Name = "AddEle";
+            this.AddEle.Size = new System.Drawing.Size(120, 20);
+            this.AddEle.TabIndex = 8;
+            // 
+            // AddTime
+            // 
+            this.AddTime.Location = new System.Drawing.Point(70, 50);
+            this.AddTime.Name = "AddTime";
+            this.AddTime.Size = new System.Drawing.Size(120, 20);
+            this.AddTime.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1100, 590);
-            this.Controls.Add(this.EditPanel);
             this.Controls.Add(this.AddPanel);
+            this.Controls.Add(this.EditPanel);
             this.Controls.Add(this.Graphs);
             this.Controls.Add(this.MinimalizeButton);
             this.Controls.Add(this.LoadButton);
@@ -562,23 +544,16 @@ namespace Geo
             this.Text = "EdytorGPX";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.contextMenu.ResumeLayout(false);
-            this.AddPanel.ResumeLayout(false);
+            this.EditPanel.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EditEle)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EditLat)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditLon)).EndInit();
-            this.EditPanel.ResumeLayout(false);
+            this.AddPanel.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AddEle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AddTime)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AddLat)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AddLon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -602,34 +577,34 @@ namespace Geo
         private System.Windows.Forms.ToolStripMenuItem AddOneNext;
         private System.Windows.Forms.ToolStripMenuItem RemoveAllNext;
         private System.Windows.Forms.ToolStripMenuItem EditSelected;
-        private System.Windows.Forms.Panel AddPanel;
+        private System.Windows.Forms.Panel EditPanel;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown EditEle;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown EditLat;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown EditLon;
         private System.Windows.Forms.Label labeledit;
         private System.Windows.Forms.Button EditCancel;
         private System.Windows.Forms.Button EditAdd;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel EditPanel;
+        private System.Windows.Forms.Panel AddPanel;
         private System.Windows.Forms.Button AddCancel;
         private System.Windows.Forms.Button AddAdd;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown AddEle;
-        private System.Windows.Forms.NumericUpDown AddTime;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.NumericUpDown AddLat;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown AddLon;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox EditTime;
+        private System.Windows.Forms.TextBox EditEle;
+        private System.Windows.Forms.TextBox EditLon;
+        private System.Windows.Forms.TextBox EditLat;
+        private System.Windows.Forms.TextBox AddTime;
+        private System.Windows.Forms.TextBox AddEle;
+        private System.Windows.Forms.TextBox AddLon;
+        private System.Windows.Forms.TextBox AddLat;
     }
 }
 
