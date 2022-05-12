@@ -123,6 +123,7 @@ namespace Geo
             this.map.TabIndex = 0;
             this.map.Zoom = 0D;
             this.map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.map_OnMarkerClick);
+            this.map.MouseClick += new System.Windows.Forms.MouseEventHandler(this.map_OnMapClick);
             // 
             // LoadButton
             // 

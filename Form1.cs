@@ -12,11 +12,16 @@ namespace Geo
     public partial class Form1 : Form
     {
         private bool dragging = false;
-        private Point startPoint = new Point(0, 0);
+        private bool draggingMarker = false;     
+        double lat = 0, lng = 0;
+        private Point startPoint = new Point(0, 0);           
+        private PointLatLng moveMarker = new PointLatLng(0,0);      
         XmlWrapper wrapper = new XmlWrapper();
         List<Punkt> punkty = new List<Punkt>();
         FileMetadata filemetadata = new FileMetadata();
         GMapMarker lastClickedMarker;
+        
+
 
         public Form1()
         {
@@ -155,16 +160,47 @@ namespace Geo
             map.Overlays.Add(punkty);
             map.Overlays.Add(linie);
         }
+
+
         private void map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
             lastClickedMarker = item; // oznaczam jako ostatnio wybrany element
+                      
             if (e.Button == MouseButtons.Right)
             {
-                contextMenu.Show(map,e.Location); //pokazuje menu kontextowe 
+                contextMenu.Show(map,e.Location); //pokazuje menu kontextowe  
             }
-            
+            if (e.Button == MouseButtons.Left);
+            {                
+                draggingMarker = true;    //oznaczenie kliknięcia markera                                                       
+            }                   
+        }
+    
+        private void map_OnMapClick(object sender, MouseEventArgs e)
+        {
+            //wczytanie koordynatów kliknięcia
+            lat = map.FromLocalToLatLng(e.X, e.Y).Lat;
+            lng = map.FromLocalToLatLng(e.X, e.Y).Lng;            
+            if (draggingMarker && e.Button == MouseButtons.Left)
+              {                     
+                    moveMarker = new PointLatLng(lat, lng);  //przypisanie markerowi koordynatów                  
+
+                    for(int i=0;i < punkty.Count; i++)
+                    {
+                        if(punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
+                        {       
+                               //przypisanie nowych koordynatów markera do punktu i wyświetlenie
+                               punkty[i].SetLat(moveMarker.Lat);
+                               punkty[i].SetLon(moveMarker.Lng); 
+                               draggingMarker = false;
+                               DrawTrk(punkty);
+                        }                
+                    }
+                   
+              }
         }
 
+             
         private void RemoveSelected_Click(object sender, EventArgs e) //usuwa wybrany punkt
         {
            for(int i=0;i < punkty.Count; i++)
@@ -229,9 +265,14 @@ namespace Geo
             }
         }
 
+        
+
         private void AddOneNext_Click(object sender, EventArgs e)
         {
 
         }
+
+        
     }
 }
+
