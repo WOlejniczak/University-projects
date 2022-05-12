@@ -91,7 +91,7 @@ namespace Geo
                 double predkosc = odleglosc / (czas / 3600);
                 if (czas > 0)
                 {
-                    Console.WriteLine(predkosc);
+                    
                     seriaPr.Points.AddXY(punkt.GetTimeOnly(), predkosc);
                     try
                     {

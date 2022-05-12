@@ -17,6 +17,9 @@ namespace Geo
         List<Punkt> punkty = new List<Punkt>();
         FileMetadata filemetadata = new FileMetadata();
         GMapMarker lastClickedMarker;
+        GMapOverlay linieOverlay = new GMapOverlay("droga");
+        GMapOverlay punktyOverlay = new GMapOverlay("Punkty");
+
 
         public Form1()
         {
@@ -55,9 +58,6 @@ namespace Geo
             map.ShowCenter = false;
             AddPanel.Visible = false;
             EditPanel.Visible = false;
-
-
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -70,7 +70,7 @@ namespace Geo
                 wrapper.SetPath(openFileDialog.FileName);
                 punkty = wrapper.ReadTrk();
                 FileMetadata filemetadata = wrapper.ReadMetadata();
-                DrawTrk(punkty);
+                DrawTrk();
             }
         }
 
@@ -134,26 +134,35 @@ namespace Geo
             wykresy.ShowDialog(this); //pokazuję tak żeby mieć dobrego parenta (to okno)
         }
 
-        private void DrawTrk(List<Punkt> x)
+        private void DrawTrk()
         {
-            map.Overlays.Clear();
-            GMapOverlay linie = new GMapOverlay("droga");
-            GMapOverlay punkty = new GMapOverlay("Punkty");
-            for (int i = 0; i < x.Count - 1; i++)
+            map.HoldInvalidation = true;
+            
+            Console.WriteLine("punkty do narysowania:" + punkty.Count);
+            Console.WriteLine("czyszczę mapę");
+            linieOverlay.Clear();
+            punktyOverlay.Clear();
+            Console.WriteLine("dodaje do mapy");  
+            int lastI = 0;
+            for (int i = 0; i < punkty.Count - 1; i++)
             {
-                Punkt marker = x[i];
-                Punkt nextMarker = x[i + 1];
+                Punkt marker = punkty[i];
+                Punkt nextMarker = punkty[i + 1];
                 List<PointLatLng> points = new List<PointLatLng>();
                 points.Add(new PointLatLng(marker.GetLat(), marker.GetLon()));
                 points.Add(new PointLatLng(nextMarker.GetLat(), nextMarker.GetLon()));
                 GMap.NET.WindowsForms.GMapPolygon polygon = new GMap.NET.WindowsForms.GMapPolygon(points, "przebyta droga");
                 polygon.Fill = new SolidBrush(System.Drawing.Color.FromArgb(0, System.Drawing.Color.Red));
                 polygon.Stroke = new System.Drawing.Pen(System.Drawing.Color.Red, 2);
-                linie.Polygons.Add(polygon);
-                punkty.Markers.Add(new GMarkerGoogle(new PointLatLng(marker.GetLat(), marker.GetLon()), GMarkerGoogleType.blue_dot)); //tutaj można zmienić styl markera :)
+                linieOverlay.Polygons.Add(polygon);
+                punktyOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(marker.GetLat(), marker.GetLon()), GMarkerGoogleType.orange_small)); //tutaj można zmienić styl markera :)
+                lastI = i;
             }
-            map.Overlays.Add(punkty);
-            map.Overlays.Add(linie);
+            punktyOverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(punkty[lastI+1].GetLat(), punkty[lastI + 1].GetLon()), GMarkerGoogleType.orange_small));
+            map.Overlays.Add(punktyOverlay);
+            map.Overlays.Add(linieOverlay);
+            map.Refresh();
+            Console.WriteLine("Kończę działanie DrawTrk");
         }
         private void map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
@@ -172,42 +181,48 @@ namespace Geo
                 if(punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
                 {
                     punkty.RemoveAt(i);
-                    DrawTrk(punkty);
+                    Console.WriteLine("rysuję - usun aktualny");
+                    DrawTrk();
+                    
                 }
             }
         }
 
         private void RemoveAllPrev_Click(object sender, EventArgs e)
         {
-            
-            for(int i = 0; i < punkty.Count; i++)
+            Console.WriteLine("punkty przed usunięciem poprzednich: " + punkty.Count);
+                for (int i = 0; i < punkty.Count; i++)
             {
                 if(punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
                 {
-                    
-                    DrawTrk(punkty);
+                    Console.WriteLine("rysuję - usun wszystkie poprzednie");
+                    DrawTrk();
                     return;
                 }
-                punkty.RemoveAt(0);
-                
+                punkty.RemoveAt(i);
+                i--;
             }
+            
         }
 
         private void RemoveAllNext_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("Ilość wszytkich punktów: ");
             Boolean after = false;
             for (int i = 0; i < punkty.Count; i++)
             {
                 if(after == true)
                 {
                     punkty.RemoveAt(i);
-                }
-                if (punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
+                    i--;
+                }else if (punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng) // elsif, bo jesli true to nie muszę już tego sprawdzać
                 {
                     after = true;
                 }
             }
-            DrawTrk(punkty);
+            Console.WriteLine("rysuję - usun wszystkie następne");
+            DrawTrk();
+            
         }
 
         private void AddOnePrev_Click(object sender, EventArgs e)
@@ -233,5 +248,6 @@ namespace Geo
         {
 
         }
+
     }
 }

@@ -115,7 +115,7 @@ namespace Geo
             this.map.NegativeMode = false;
             this.map.PolygonsEnabled = true;
             this.map.RetryLoadTile = 0;
-            this.map.RoutesEnabled = true;
+            this.map.RoutesEnabled = false;
             this.map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.map.ShowTileGridLines = false;
