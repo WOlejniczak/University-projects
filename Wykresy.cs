@@ -1,14 +1,11 @@
 ﻿using GeoSpatial4Net;
+using GMap.NET.WindowsForms;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using GMap.NET;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
-using System.Drawing;
 
 namespace Geo
 {
@@ -22,10 +19,10 @@ namespace Geo
             LocalPunkty = punkty;
             lastClickedMarker = _lastClickedMarker;
         }
-        
+
         private void Wykresy_Load(object sender, EventArgs e)
         {
-           
+
             //wykres wysokosci
             WykresEle.Series.Clear();
             WykresEle.Titles.Add("Średnia wysokość (n.p.m)");
@@ -39,7 +36,7 @@ namespace Geo
             int counter = 0;
             foreach (Punkt punkt in LocalPunkty)
             {
-                
+
                 if (punkt.GetEle() < minimum)
                 {
                     minimum = punkt.GetEle();
@@ -50,25 +47,26 @@ namespace Geo
                 }
                 seria.Points.AddXY(punkt.GetTimeOnly(), punkt.GetEle());
                 counter++;
-                
-                if(lastClickedMarker != null){
+
+                if (lastClickedMarker != null)
+                {
                     if (punkt.GetLat() == lastClickedMarker.Position.Lat && punkt.GetLon() == lastClickedMarker.Position.Lng)
                     {
                         seria.Points[counter - 1].MarkerStyle = MarkerStyle.Circle;
                         seria.Points[counter - 1].MarkerSize = 10;
                         seria.Points[counter - 1].MarkerColor = Color.Red;
-                        
+
                     }
                 }
-               
-                
+
+
             }
             //ustawiam zakres wykresu
             WykresEle.ChartAreas[0].AxisY.Maximum = maximum + 10;
             WykresEle.ChartAreas[0].AxisY.Minimum = minimum - 10;
             //zaznaczam ostatnio kliknięty element na wykresie
 
-            
+
 
 
             //wykres sredniej predkosci
@@ -89,19 +87,19 @@ namespace Geo
                 double predkosc = odleglosc / (czas / 3600);
                 if (czas > 0)
                 {
-                    
+
                     seriaPr.Points.AddXY(punkt.GetTimeOnly(), predkosc);
                     if (lastClickedMarker != null)
                     {
                         if (punkt.GetLat() == lastClickedMarker.Position.Lat && punkt.GetLon() == lastClickedMarker.Position.Lng)
                         {
-                            seriaPr.Points[i-1].MarkerStyle = MarkerStyle.Circle;
-                            seriaPr.Points[i-1].MarkerSize = 10;
-                            seriaPr.Points[i-1].MarkerColor = Color.Red;
+                            seriaPr.Points[i - 1].MarkerStyle = MarkerStyle.Circle;
+                            seriaPr.Points[i - 1].MarkerSize = 10;
+                            seriaPr.Points[i - 1].MarkerColor = Color.Red;
 
                         }
                     }
-                    
+
                 }
             }
         }

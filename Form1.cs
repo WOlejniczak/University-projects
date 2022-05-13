@@ -13,10 +13,10 @@ namespace Geo
     public partial class Form1 : Form
     {
         private bool dragging = false;
-        private bool draggingMarker = false;     
+        private bool draggingMarker = false;
         double lat = 0, lng = 0;
-        private Point startPoint = new Point(0, 0);           
-        private PointLatLng moveMarker = new PointLatLng(0,0);      
+        private Point startPoint = new Point(0, 0);
+        private PointLatLng moveMarker = new PointLatLng(0, 0);
         XmlWrapper wrapper = new XmlWrapper();
         List<Punkt> punkty = new List<Punkt>();
         FileMetadata filemetadata = new FileMetadata();
@@ -176,59 +176,59 @@ namespace Geo
         private void map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
             lastClickedMarker = item; // oznaczam jako ostatnio wybrany element
-                      
+
             if (e.Button == MouseButtons.Right)
             {
-                contextMenu.Show(map,e.Location); //pokazuje menu kontextowe  
+                contextMenu.Show(map, e.Location); //pokazuje menu kontextowe  
             }
             if (e.Button == MouseButtons.Left && modifier.Keyboard.IsKeyDown(modifier.Key.LeftShift))
-            {                
+            {
                 draggingMarker = true;    //oznaczenie kliknięcia markera                                                       
-            }                   
+            }
         }
-    
+
         private void map_OnMapClick(object sender, MouseEventArgs e)
         {
             //wczytanie koordynatów kliknięcia
             lat = map.FromLocalToLatLng(e.X, e.Y).Lat;
-            lng = map.FromLocalToLatLng(e.X, e.Y).Lng;            
+            lng = map.FromLocalToLatLng(e.X, e.Y).Lng;
             if (draggingMarker && e.Button == MouseButtons.Left)
-              {                     
-                    moveMarker = new PointLatLng(lat, lng);  //przypisanie markerowi koordynatów                  
+            {
+                moveMarker = new PointLatLng(lat, lng);  //przypisanie markerowi koordynatów                  
 
-                    for(int i=0;i < punkty.Count; i++)
+                for (int i = 0; i < punkty.Count; i++)
+                {
+                    if (punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
                     {
-                        if(punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
-                        {       
-                               //przypisanie nowych koordynatów markera do punktu i wyświetlenie
-                               draggingMarker = false;
-                               punkty[i].SetLat(moveMarker.Lat);
-                               punkty[i].SetLon(moveMarker.Lng);
-                               DrawTrk();
-                              
-                        }                
+                        //przypisanie nowych koordynatów markera do punktu i wyświetlenie
+                        draggingMarker = false;
+                        punkty[i].SetLat(moveMarker.Lat);
+                        punkty[i].SetLon(moveMarker.Lng);
+                        DrawTrk();
+
                     }
-              }
+                }
+            }
         }
-             
+
         private void RemoveSelected_Click(object sender, EventArgs e) //usuwa wybrany punkt
         {
-           for(int i=0;i < punkty.Count; i++)
+            for (int i = 0; i < punkty.Count; i++)
             {
-                if(punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
+                if (punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
                 {
                     punkty.RemoveAt(i);
                     DrawTrk();
-                    
+
                 }
             }
         }
 
         private void RemoveAllPrev_Click(object sender, EventArgs e)
         {
-                for (int i = 0; i < punkty.Count; i++)
+            for (int i = 0; i < punkty.Count; i++)
             {
-                if(punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
+                if (punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
                 {
                     DrawTrk();
                     return;
@@ -236,7 +236,7 @@ namespace Geo
                 punkty.RemoveAt(i);
                 i--;
             }
-            
+
         }
 
         private void RemoveAllNext_Click(object sender, EventArgs e)
@@ -244,17 +244,18 @@ namespace Geo
             Boolean after = false;
             for (int i = 0; i < punkty.Count; i++)
             {
-                if(after == true)
+                if (after == true)
                 {
                     punkty.RemoveAt(i);
                     i--;
-                }else if (punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng) // elsif, bo jesli true to nie muszę już tego sprawdzać
+                }
+                else if (punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng) // elsif, bo jesli true to nie muszę już tego sprawdzać
                 {
                     after = true;
                 }
             }
             DrawTrk();
-            
+
         }
 
         private void AddOnePrev_Click(object sender, EventArgs e)
@@ -278,9 +279,9 @@ namespace Geo
         {
             EditPanel.Location = new Point(Cursor.Position.X - this.Location.X, Cursor.Position.Y - this.Location.Y);
             EditPanel.Visible = true;
-            for(int i = 0; i < punkty.Count; i++)
+            for (int i = 0; i < punkty.Count; i++)
             {
-                if(punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
+                if (punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
                 {
                     EditEle.Text = punkty[i].GetEle().ToString();
                     EditLat.Text = punkty[i].GetLat().ToString();
@@ -327,7 +328,7 @@ namespace Geo
                     _temp.Add(punkty[i]);
                     if (punkty[i].GetLat() == lastClickedMarker.Position.Lat && punkty[i].GetLon() == lastClickedMarker.Position.Lng)
                     {
-                        _temp.Add(new Punkt(Double.Parse(AddLat.Text),Double.Parse(AddLon.Text),Double.Parse(AddEle.Text),DateTime.Parse(AddTime.Text)));
+                        _temp.Add(new Punkt(Double.Parse(AddLat.Text), Double.Parse(AddLon.Text), Double.Parse(AddEle.Text), DateTime.Parse(AddTime.Text)));
                     }
                 }
                 punkty.Clear();

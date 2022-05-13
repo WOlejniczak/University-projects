@@ -52,30 +52,30 @@ namespace Geo
             this.EditCancel = new System.Windows.Forms.Button();
             this.EditAdd = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.EditEle = new System.Windows.Forms.TextBox();
             this.EditTime = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.EditLon = new System.Windows.Forms.TextBox();
+            this.EditLat = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.labeledit = new System.Windows.Forms.Label();
             this.AddPanel = new System.Windows.Forms.Panel();
             this.AddCancel = new System.Windows.Forms.Button();
             this.AddAdd = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.AddTime = new System.Windows.Forms.TextBox();
+            this.AddEle = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.AddLon = new System.Windows.Forms.TextBox();
+            this.AddLat = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.EditEle = new System.Windows.Forms.TextBox();
-            this.EditLat = new System.Windows.Forms.TextBox();
-            this.EditLon = new System.Windows.Forms.TextBox();
-            this.AddLat = new System.Windows.Forms.TextBox();
-            this.AddLon = new System.Windows.Forms.TextBox();
-            this.AddEle = new System.Windows.Forms.TextBox();
-            this.AddTime = new System.Windows.Forms.TextBox();
             this.contextMenu.SuspendLayout();
             this.EditPanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -90,6 +90,7 @@ namespace Geo
             this.map.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.map.AutoSize = true;
             this.map.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.map.Bearing = 0F;
             this.map.CanDragMap = true;
@@ -98,7 +99,7 @@ namespace Geo
             this.map.GrayScaleMode = false;
             this.map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.map.LevelsKeepInMemory = 5;
-            this.map.Location = new System.Drawing.Point(1, 30);
+            this.map.Location = new System.Drawing.Point(-9, 30);
             this.map.MarkersEnabled = true;
             this.map.MaxZoom = 2;
             this.map.MinZoom = 2;
@@ -112,7 +113,7 @@ namespace Geo
             this.map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.map.ShowTileGridLines = false;
-            this.map.Size = new System.Drawing.Size(1100, 567);
+            this.map.Size = new System.Drawing.Size(1116, 565);
             this.map.TabIndex = 0;
             this.map.Zoom = 0D;
             this.map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.map_OnMarkerClick);
@@ -132,6 +133,7 @@ namespace Geo
             // CloseButton
             // 
             this.CloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CloseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.CloseButton.ForeColor = System.Drawing.Color.Red;
             this.CloseButton.Location = new System.Drawing.Point(1061, 0);
             this.CloseButton.Name = "CloseButton";
@@ -303,6 +305,13 @@ namespace Geo
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "wysokość(n.p.m) i czas";
             // 
+            // EditEle
+            // 
+            this.EditEle.Location = new System.Drawing.Point(70, 25);
+            this.EditEle.Name = "EditEle";
+            this.EditEle.Size = new System.Drawing.Size(120, 20);
+            this.EditEle.TabIndex = 9;
+            // 
             // EditTime
             // 
             this.EditTime.Location = new System.Drawing.Point(70, 50);
@@ -349,6 +358,20 @@ namespace Geo
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Długość i szerokość geograficzna";
+            // 
+            // EditLon
+            // 
+            this.EditLon.Location = new System.Drawing.Point(70, 54);
+            this.EditLon.Name = "EditLon";
+            this.EditLon.Size = new System.Drawing.Size(120, 20);
+            this.EditLon.TabIndex = 5;
+            // 
+            // EditLat
+            // 
+            this.EditLat.Location = new System.Drawing.Point(70, 23);
+            this.EditLat.Name = "EditLat";
+            this.EditLat.Size = new System.Drawing.Size(120, 20);
+            this.EditLat.TabIndex = 4;
             // 
             // label1
             // 
@@ -414,6 +437,20 @@ namespace Geo
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "wysokość(n.p.m) i czas";
             // 
+            // AddTime
+            // 
+            this.AddTime.Location = new System.Drawing.Point(70, 50);
+            this.AddTime.Name = "AddTime";
+            this.AddTime.Size = new System.Drawing.Size(120, 20);
+            this.AddTime.TabIndex = 9;
+            // 
+            // AddEle
+            // 
+            this.AddEle.Location = new System.Drawing.Point(70, 23);
+            this.AddEle.Name = "AddEle";
+            this.AddEle.Size = new System.Drawing.Size(120, 20);
+            this.AddEle.TabIndex = 8;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -454,6 +491,20 @@ namespace Geo
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Długość i szerokość geograficzna";
             // 
+            // AddLon
+            // 
+            this.AddLon.Location = new System.Drawing.Point(70, 54);
+            this.AddLon.Name = "AddLon";
+            this.AddLon.Size = new System.Drawing.Size(120, 20);
+            this.AddLon.TabIndex = 5;
+            // 
+            // AddLat
+            // 
+            this.AddLat.Location = new System.Drawing.Point(70, 24);
+            this.AddLat.Name = "AddLat";
+            this.AddLat.Size = new System.Drawing.Size(120, 20);
+            this.AddLat.TabIndex = 4;
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -472,59 +523,11 @@ namespace Geo
             this.label9.TabIndex = 2;
             this.label9.Text = "szerokość:";
             // 
-            // EditEle
-            // 
-            this.EditEle.Location = new System.Drawing.Point(70, 25);
-            this.EditEle.Name = "EditEle";
-            this.EditEle.Size = new System.Drawing.Size(120, 20);
-            this.EditEle.TabIndex = 9;
-            // 
-            // EditLat
-            // 
-            this.EditLat.Location = new System.Drawing.Point(70, 23);
-            this.EditLat.Name = "EditLat";
-            this.EditLat.Size = new System.Drawing.Size(120, 20);
-            this.EditLat.TabIndex = 4;
-            // 
-            // EditLon
-            // 
-            this.EditLon.Location = new System.Drawing.Point(70, 54);
-            this.EditLon.Name = "EditLon";
-            this.EditLon.Size = new System.Drawing.Size(120, 20);
-            this.EditLon.TabIndex = 5;
-            // 
-            // AddLat
-            // 
-            this.AddLat.Location = new System.Drawing.Point(70, 24);
-            this.AddLat.Name = "AddLat";
-            this.AddLat.Size = new System.Drawing.Size(120, 20);
-            this.AddLat.TabIndex = 4;
-            // 
-            // AddLon
-            // 
-            this.AddLon.Location = new System.Drawing.Point(70, 54);
-            this.AddLon.Name = "AddLon";
-            this.AddLon.Size = new System.Drawing.Size(120, 20);
-            this.AddLon.TabIndex = 5;
-            // 
-            // AddEle
-            // 
-            this.AddEle.Location = new System.Drawing.Point(70, 23);
-            this.AddEle.Name = "AddEle";
-            this.AddEle.Size = new System.Drawing.Size(120, 20);
-            this.AddEle.TabIndex = 8;
-            // 
-            // AddTime
-            // 
-            this.AddTime.Location = new System.Drawing.Point(70, 50);
-            this.AddTime.Name = "AddTime";
-            this.AddTime.Size = new System.Drawing.Size(120, 20);
-            this.AddTime.TabIndex = 9;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1100, 590);
             this.Controls.Add(this.AddPanel);
@@ -555,6 +558,7 @@ namespace Geo
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

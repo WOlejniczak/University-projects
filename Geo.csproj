@@ -8,7 +8,7 @@
     <ProjectGuid>{4D80C6C5-9DBC-4F53-BBE5-9AEF28676D2A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Geo</RootNamespace>
-    <AssemblyName>Geo</AssemblyName>
+    <AssemblyName>GpxEditor</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,6 +34,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>resources\map.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -215,6 +218,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Wykresy.resx">
       <DependentUpon>Wykresy.cs</DependentUpon>
@@ -232,6 +236,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\marker_image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\smaller_marker_image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\map.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\map.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
