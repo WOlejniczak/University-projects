@@ -77,7 +77,7 @@ namespace Geo
             seriaPr.ChartType = SeriesChartType.Spline;
 
             //teraz dodaje do serii
-            for (int i = 0; i < LocalPunkty.Count - 1; i++)
+            for (int i = 1; i < LocalPunkty.Count - 1; i++)
             {
                 Punkt punkt = LocalPunkty.ElementAt(i);
                 Punkt nextpunkt = LocalPunkty.ElementAt(i + 1);

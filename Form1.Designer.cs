@@ -102,7 +102,7 @@ namespace Geo
             this.map.Location = new System.Drawing.Point(-9, 30);
             this.map.MarkersEnabled = true;
             this.map.MaxZoom = 2;
-            this.map.MinZoom = 2;
+            this.map.MinZoom = 1;
             this.map.MouseWheelZoomEnabled = true;
             this.map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             this.map.Name = "map";
