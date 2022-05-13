@@ -238,12 +238,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\marker_image.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resources\smaller_marker_image.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="resources\map.ico" />
   </ItemGroup>
   <ItemGroup>
