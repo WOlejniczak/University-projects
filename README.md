@@ -25,4 +25,5 @@ Szczegóły działania programu:
 
 Download link: [GpxEditor.zip](https://github.com/WOlejniczak/inzynieria-oprogramowania/files/8686667/GpxEditor.zip)
 
-Plik testowy: [Plik Testowy.zip](https://github.com/WOlejniczak/inzynieria-oprogramowania/files/8686536/Plik.Testowy.zip)
+Plik testowy: [Release.zip](https://github.com/WOlejniczak/inzynieria-oprogramowania/files/8694744/Release.zip)
+
